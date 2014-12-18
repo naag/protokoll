@@ -7,11 +7,10 @@ require "protokoll/version"
 Gem::Specification.new do |s|
   s.name        = "protokoll"
   s.version     = Protokoll::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Protokoll."
-  s.description = "TODO: Description of Protokoll."
+  s.authors     = ["Peter Bücker"]
+  s.email       = ["naag@gmx.net"]
+  s.homepage    = "https://github.com/naag/protokoll"
+  s.summary     = "Change all Rails / Ruby logging to Logstash compatible JSON"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
