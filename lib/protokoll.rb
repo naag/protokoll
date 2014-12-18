@@ -30,7 +30,7 @@ module Protokoll
 
   def self.disable_default_logging
     remove_existing_log_subscriptions
-    require 'rails_ext/rack/logger'
+    require 'protokoll/rails_ext/rack/logger'
   end
 
   def self.setup(app)
