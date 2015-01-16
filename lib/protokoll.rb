@@ -43,29 +43,26 @@ module Protokoll
   end
 
   def self.format_message(severity, msg)
-    case msg
-    when /^\{.*\}$/
-      parsed_msg = JSON.parse(msg)
-      params = {
-        severity: severity.downcase
-      }
-      params.merge! parsed_msg
-      add_request_data(params)
-      LogStash::Event.new(params).to_json
-    else
-      params = {
-        severity: severity.downcase,
-        message: msg
-      }
-      add_request_data(params)
-      LogStash::Event.new(params).to_json
-    end
+    params = {
+      severity: severity.downcase,
+      message: msg
+    }
+    add_request_data(params)
+    LogStash::Event.new(params).to_json
   end
 
   def self.add_request_data(params)
-    params[:client] = Thread.current[:remote_ip] if Thread.current[:remote_ip]
-    params[:request_id] = Thread.current[:request_id] if Thread.current[:request_id]
+    params[:client] = Thread.current[client_var] if Thread.current[client_var]
+    params[:request_id] = Thread.current[request_id_var] if Thread.current[request_id_var]
     params
+  end
+
+  def self.client_var
+    Rails.application.config.protokoll.client
+  end
+
+  def self.request_id_var
+    Rails.application.config.protokoll.request_id
   end
 end
 

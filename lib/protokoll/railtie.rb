@@ -1,4 +1,5 @@
 require 'rails/railtie'
+require 'protokoll/middleware/logging'
 require 'action_view/log_subscriber'
 require 'action_controller/log_subscriber'
 
@@ -15,6 +16,7 @@ module Protokoll
     end
 
     initializer :protokoll, after: 'protokoll.configure_logger' do |app|
+      Rails.application.middleware.insert_after ActionDispatch::Flash, Protokoll::Middleware::Logging
       Protokoll.setup(app) if app.config.protokoll.enabled
     end
   end
