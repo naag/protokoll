@@ -37,7 +37,7 @@ module Protokoll
     app.config.colorize_logging = false
     disable_default_logging
 
-    logger(app).formatter = proc do |severity, _datetime, _progname, msg|
+    Rails.logger.formatter = proc do |severity, _datetime, _progname, msg|
       "#{format_message(severity, msg)}\n"
     end
   end
@@ -66,10 +66,6 @@ module Protokoll
     params[:client] = Thread.current[:remote_ip] if Thread.current[:remote_ip]
     params[:request_id] = Thread.current[:request_id] if Thread.current[:request_id]
     params
-  end
-
-  def self.logger(app)
-    app.config.logger
   end
 end
 
